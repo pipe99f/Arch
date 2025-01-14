@@ -1,0 +1,9 @@
+linux
+linux-firmware
+neovim
+git
+base
+base-devel
+amd-ucode
+sof-firmware
+

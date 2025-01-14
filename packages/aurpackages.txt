@@ -1,0 +1,8 @@
+adwaita-qt6-git
+coursier
+joplin-appimage
+pcsx2-latest-bin 
+quarto-cli-bin
+scala-dotty
+superproductivity-bin
+wdisplays

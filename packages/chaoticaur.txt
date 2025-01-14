@@ -1,0 +1,8 @@
+chaotic-aur/anki
+chaotic-aur/brave-bin
+chaotic-aur/clipman
+chaotic-aur/librewolf
+chaotic-aur/onlyoffice-bin
+chaotic-aur/spicetify-cli
+chaotic-aur/spicetify-marketplace-bin
+chaotic-aur/vesktop
