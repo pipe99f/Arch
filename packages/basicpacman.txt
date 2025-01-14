@@ -1,6 +1,7 @@
 atuin
 autotiling-rs
 cargo
+cmake
 cronie
 cups
 exa
