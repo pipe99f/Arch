@@ -49,12 +49,20 @@ create_mountpoints() {
   echo "Creating mountpoints..."
   sudo mkdir /mnt/ce /mnt/ve /mnt/external
   ln -s /mnt/ce $HOME/ce
+  sudo chown -R pipe99f:pipe99f /mnt/ce
+  sudo chmod -R 755 /mnt/ce
+
   ln -s /mnt/ve $HOME/ve
+  sudo chown -R pipe99f:pipe99f /mnt/ve
+  sudo chmod -R 755 /mnt/ve
+
   ln -s /mnt/external $HOME/external
+  sudo chown -R pipe99f:pipe99f /mnt/external
+  sudo chmod -R 755 /mnt/external
 
   echo "Get UUID's with sudo blkid"
   echo "Complete fstab with the next format"
-  echo "UUID=<partition UUID> /mnt/<mountpoint> <either ext4 or ntfs-3g> defaults 0 0"
+  echo "UUID=<partition UUID> /mnt/<mountpoint> <either ext4 or ntfs-3g> defaults 0 2"
 
 }
 

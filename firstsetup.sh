@@ -9,7 +9,27 @@ echo "arch" >>/etc/hostname
 echo "127.0.0.1 localhost" >>/etc/hosts
 echo "::1       localhost" >>/etc/hosts
 echo "127.0.1.1 arch.localdomain arch" >>/etc/hosts
-passwd
+
+set_password() {
+  local username="$1"
+  while true; do
+
+    if [ -z "$username" ]; then
+      passwd
+    else
+      passwd "$username"
+    fi
+
+    # Check if the passwd command succeeded
+    if [ $? -eq 0 ]; then
+      echo "Password set successfully."
+      return 0
+    else
+      echo "Password setting failed. Please try again."
+    fi
+  done
+}
+set_password
 
 pacman -S curl grub networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools linux-headers reflector avahi xdg-user-dirs xdg-utils os-prober openssh gvfs pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber efibootmgr ntp acpid nss-mdns iptables-nft dnsmasq openbsd-netcat zsh
 
@@ -44,7 +64,7 @@ while true; do
 done
 
 useradd -m "$username"
-passwd "$username"
+set_password "$username"
 usermod -aG wheel "$username"
 echo "%wheel ALL=(ALL) ALL" >>/etc/sudoers.d/"$username"
 
