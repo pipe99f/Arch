@@ -1,30 +1,38 @@
-install.packages(
-  c("arrow",
-    "babynames", 
-    "curl", 
-    "duckdb", 
-    "gapminder", 
-    "ggrepel", 
-    "ggridges",
-    "ggthemes",
-    "hexbin",
-    "httpgd"
-    "janitor",
-    "Lahman", 
-    "leaflet",
-    "maps",
-    "nycflights13",
-    "openxlsx",
-    "pacman",
-    "palmerpenguins", 
-    "remotes",
-    "repurrrsive", 
-    "styler",
-    "tidymodels",
-    "tidyverse"
-    "writexl",)
-  )
+# To avoid installing the entire tidyverse
+install.packages(c(
+  "broom",
+  "caret",
+  "data.table",
+  "dplyr",
+  "ggthemes",
+  "ggplot2",
+  "glmnet",
+  "janitor",
+  "jsonlite",
+  "lubridate",
+  "purrr",
+  "readr",
+  "readxl",
+  "rmarkdown",
+  "stringr",
+  "tibble",
+  "tidyr",
+  "writexl"
+))
 
-# install.packages("remotes")
+# More important packages
+install.packages(c(
+  "curl",
+  "ggrepel",
+  "ggridges",
+  "httpgd",
+  "pacman",
+  "remotes",
+  "renv",
+  "styler"
+  # "tidymodels",
+  # "tidyverse",
+))
+
 remotes::install_github("devOpifex/r.nvim")
 remotes::install_github("jalvesaq/colorout")
