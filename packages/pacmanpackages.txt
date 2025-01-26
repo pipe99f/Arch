@@ -8,6 +8,7 @@ chromium
 cpanminus
 cups
 cups-pdf
+direnv
 duf
 dust
 easyeffects
@@ -18,6 +19,7 @@ ffmpegthumbnailer
 gamemode
 gcc-fortran
 geckodriver
+git-lfs
 gitui
 go
 helvum
@@ -28,11 +30,9 @@ i3status
 i3-wm
 imv
 jq
-jupyter-console
-jupyter-nbformat
-jupyter-nbclient
 kolourpaint
 lib32-gamemode
+lib32-pipewire
 libretro-beetle-psx-hw
 libretro-core-info
 libretro-dolphin
@@ -56,17 +56,14 @@ noto-fonts-emoji
 pandoc-cli
 pavucontrol
 pdfarranger
+pixi
 poppler
 prettier
-python-cairosvg
 python-gobject
-python-jupyter-client
-python-jupyter-core
+python-huggingface-hub
 python-pillow
 python-pip
-python-pyperclip
 python-pymupdf
-python-pynvim
 python-pytest
 python-qtpy
 qbittorrent
@@ -96,6 +93,7 @@ tmuxp
 unarchiver
 unrar
 unzip
+uv
 visidata
 wf-recorder
 wl-mirror
