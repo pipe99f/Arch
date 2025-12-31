@@ -29,8 +29,7 @@ install.packages(c(
   "pacman",
   "remotes",
   "renv",
-  "styler"
-  # "tidymodels",
+  "tidymodels",
   # "tidyverse",
 ))
 

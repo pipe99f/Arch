@@ -99,6 +99,9 @@ cd "$HOME"/dotfiles
 rm "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list
 stow *
 
+# Install necessary pixi packages
+pixi global install --environment data-science-env pynvim jupyter_client plotly kaleido-core python-kaleido pyperclip radian jupyterlab jupyter_console
+
 # Dependency for molten nvim
 luarocks --local --lua-version=5.1 install magick
 #luarocks --local install magick

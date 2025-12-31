@@ -6,7 +6,6 @@ bat
 calibre
 chromium
 cpanminus
-cups
 cups-pdf
 direnv
 duf

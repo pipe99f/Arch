@@ -2,9 +2,9 @@
 
 ln -sf /usr/share/zoneinfo/America/Bogota /etc/localtime
 hwclock --systohc
-sed -i 's/#en_IN UTF-8/en_IN UTF-8/' /etc/locale.gen
+sed -i 's/#en_US UTF-8/en_US UTF-8/' /etc/locale.gen
 locale-gen
-echo "LANG=en_IN.UTF-8" >>/etc/locale.conf
+echo "LANG=en_US.UTF-8" >>/etc/locale.conf
 echo "arch" >>/etc/hostname
 echo "127.0.0.1 localhost" >>/etc/hosts
 echo "::1       localhost" >>/etc/hosts

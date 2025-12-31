@@ -27,6 +27,7 @@ npm
 ntfs-3g
 perl
 pacman-contrib
+pixi
 pkgfile
 qt5-wayland
 qt6-wayland
@@ -48,6 +49,7 @@ thefuck
 thunar
 timeshift
 tmux
+tree-sitter-cli
 ttf-arimo-nerd
 ttf-roboto-mono-nerd
 ufw
