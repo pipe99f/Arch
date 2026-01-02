@@ -21,6 +21,14 @@ makepkg -si
 echo "Cloning tmux plugin manager..."
 git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
 
+# yazi plugins
+ya pkg add yazi-rs/plugins:smart-enter
+
+# bat theme
+mkdir -p "$(bat --config-dir)/themes"
+wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
+bat cache --build
+
 # Stow
 echo "Stowing..."
 git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles

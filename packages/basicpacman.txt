@@ -1,5 +1,7 @@
+7zip
 atuin
 autotiling-rs
+bat
 cargo
 cmake
 cronie

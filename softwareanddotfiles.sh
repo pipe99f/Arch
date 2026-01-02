@@ -4,15 +4,15 @@ chsh -s /usr/bin/zsh
 
 echo "Is this a laptop?"
 select yn in "Yes" "No"; do
-  case $yn in
-  Yes)
-    sudo pacman -S acpi acpi_call tlp bluez bluez-utils brightnessctl wireless_tools
-    systemctl enable bluetooth.service
-    systemctl enable tlp
-    break
-    ;;
-  No) break ;;
-  esac
+	case $yn in
+	Yes)
+		sudo pacman -S acpi acpi_call tlp bluez bluez-utils brightnessctl wireless_tools
+		systemctl enable bluetooth.service
+		systemctl enable tlp
+		break
+		;;
+	No) break ;;
+	esac
 done
 
 #Hook that deletes pacman cache
@@ -91,6 +91,15 @@ END
 #default applications
 # handlr set inode/directory thunar.desktop
 # handlr set application/pdf org.pwmt.zathura.desktop
+#
+
+# yazi plugins
+ya pkg add yazi-rs/plugins:smart-enter
+
+# bat theme
+mkdir -p "$(bat --config-dir)/themes"
+wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
+bat cache --build
 
 #Stow
 echo "Stowing..."

@@ -1,3 +1,4 @@
+7zip
 atuin
 bat
 btop
@@ -23,6 +24,7 @@ npm
 openssh
 pixi
 pkgfile
+poppler
 python
 python-pip
 python-virtualenv
@@ -34,6 +36,7 @@ stow
 tcl
 tldr
 tmux
+tmuxp
 tree-sitter
 tree-sitter-cli
 unrar
