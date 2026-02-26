@@ -91,7 +91,9 @@ END
 #default applications
 # handlr set inode/directory thunar.desktop
 # handlr set application/pdf org.pwmt.zathura.desktop
-#
+
+# Install rust toolchain
+rustup default stable
 
 # yazi plugins
 ya pkg add yazi-rs/plugins:smart-enter

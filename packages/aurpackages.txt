@@ -2,7 +2,9 @@ adwaita-qt6-git
 coursier
 joplin-appimage
 lazydocker
+logseq-desktop-bin
 luarocks
+msodbcsql
 pcsx2-latest-bin 
 quarto-cli-bin
 scala-dotty

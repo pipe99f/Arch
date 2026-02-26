@@ -29,6 +29,10 @@ mkdir -p "$(bat --config-dir)/themes"
 wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
 bat cache --build
 
+# docker
+sudo systemctl enable --now docker
+sudo usermod -aG docker "$USER"
+
 # Stow
 echo "Stowing..."
 git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles

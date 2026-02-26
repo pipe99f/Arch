@@ -36,6 +36,7 @@ qt6-wayland
 qt5ct
 ripgrep
 rsync
+rustup
 slurp
 spotify-launcher
 starship
@@ -63,6 +64,7 @@ which
 wl-clipboard
 wofi
 xdg-desktop-portal-wlr
+yarn
 yazi
 xorg-xlsclients
 xorg-xwayland

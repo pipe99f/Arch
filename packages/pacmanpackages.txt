@@ -7,6 +7,9 @@ chromium
 cpanminus
 cups-pdf
 direnv
+docker
+docker-compose
+docker-buildx
 duf
 dust
 easyeffects
