@@ -29,6 +29,9 @@ mkdir -p "$(bat --config-dir)/themes"
 wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
 bat cache --build
 
+# yarn
+yarn global add @mistweaverco/kulala-ls
+
 # docker
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"

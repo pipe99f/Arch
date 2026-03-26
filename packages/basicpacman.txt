@@ -6,7 +6,8 @@ cargo
 cmake
 cronie
 cups
-exa
+eza
+fastfetch
 fd
 firefox
 fzf
@@ -22,7 +23,6 @@ libtool
 luarocks
 imagemagick
 meson
-neofetch
 ninja
 nodejs
 npm

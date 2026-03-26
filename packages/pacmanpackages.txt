@@ -21,6 +21,7 @@ gamemode
 gcc-fortran
 geckodriver
 git-lfs
+github-cli
 gitui
 go
 helvum

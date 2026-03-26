@@ -10,9 +10,10 @@ direnv
 docker
 docker-compose
 docker-buildx
-exa
+eza
 fd
 fzf
+github-cli
 gitui
 go
 grep

@@ -76,7 +76,7 @@ setup_spicetify() {
   spicetify config current_theme marketplace
   spicetify config custom_apps marketplace
   spicetify apply
-  wl-copy <"$HOME"/Arch/configs/spicetify_marketplace_settings
+  wl-copy <"$HOME"/Arch/configs/spicetify_marketplace_settings.json
   echo "Settings copied to clipboard, paste in Marketplace > Settings > Back up/Restore"
 
 }
