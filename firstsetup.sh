@@ -31,7 +31,7 @@ set_password() {
 }
 set_password
 
-pacman -S curl grub networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools linux-headers reflector avahi xdg-user-dirs xdg-utils os-prober openssh gvfs pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber efibootmgr ntp acpid nss-mdns iptables-nft dnsmasq openbsd-netcat zsh
+pacman -S curl grub networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools linux-headers reflector avahi xdg-user-dirs xdg-utils os-prober openssh gvfs pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber efibootmgr ntp acpid nss-mdns iptables dnsmasq openbsd-netcat zsh
 
 #grub config
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB

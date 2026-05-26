@@ -110,15 +110,11 @@ yarn global add @mistweaverco/kulala-ls
 echo "Stowing..."
 git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles
 cd "$HOME"/dotfiles
-rm "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list
+rm "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list "$HOME"/.config/ghostty/config.ghostty
 stow *
 
 # Install necessary pixi packages
 pixi global install --environment data-science-env pynvim jupyter_client plotly kaleido-core python-kaleido pyperclip radian jupyterlab jupyter_console
-
-# Dependency for molten nvim
-luarocks --local --lua-version=5.1 install magick
-#luarocks --local install magick
 
 # Doom emacs
 #git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
@@ -128,15 +124,21 @@ luarocks --local --lua-version=5.1 install magick
 
 #enable services
 echo "Enabling services..."
-systemctl --user enable --now pipewire.socket
-systemctl --user enable --now pipewire-pulse.socket
-systemctl --user enable --now wireplumber.service
-systemctl enable paccache.timer
-systemctl enable ufw.service
-systemctl enable archlinux-keyring-wkd-sync.timer
-systemctl enable cups.service
-systemctl enable cronie.service
-systemctl enable pkgfile-update.timer
-#si se usa ssd
-systemctl enable fstrim.timer
-systemctl enable grub-btrfsd
+# Audio (Modern standard)
+systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
+
+# Maintenance & Security
+systemctl enable --now ufw.service archlinux-keyring-wkd-sync.timer paccache.timer earlyoom
+
+# docker
+systemctl enable --now docker.socket
+usermod -aG docker "$USER"
+
+##si se usa ssd
+#systemctl enable fstrim.timer
+
+# Only if using Btrfs snapshots
+systemctl enable --now grub-btrfsd
+
+# Otros (only if really needed)
+systemctl enable cups.service cronie.service

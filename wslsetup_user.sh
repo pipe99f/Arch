@@ -33,8 +33,11 @@ bat cache --build
 yarn global add @mistweaverco/kulala-ls
 
 # docker
-sudo systemctl enable --now docker
+sudo systemctl enable --now docker.socket
 sudo usermod -aG docker "$USER"
+
+# update mirrors
+sudo systemctl enable reflector.timer
 
 # Stow
 echo "Stowing..."
@@ -42,9 +45,6 @@ git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles
 cd "$HOME"/dotfiles
 rm "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list
 stow *
-
-# Dependency for molten nvim
-luarocks --local --lua-version=5.1 install magick
 
 # Install necessary pixi packages
 pixi global install --environment data-science-env pynvim jupyter_client plotly kaleido-core python-kaleido pyperclip radian jupyterlab jupyter_console

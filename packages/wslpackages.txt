@@ -18,13 +18,16 @@ gitui
 go
 grep
 htop
+imagemagick
 imv
 jq
-luarocks
+just
 man-db
+ncdu
 ninja
 nodejs
 npm
+opencode
 openssh
 pixi
 pkgfile

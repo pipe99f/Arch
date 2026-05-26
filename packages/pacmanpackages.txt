@@ -7,13 +7,9 @@ chromium
 cpanminus
 cups-pdf
 direnv
-docker
-docker-compose
-docker-buildx
 duf
 dust
 easyeffects
-emacs
 fennel
 ffmpeg4.4
 ffmpegthumbnailer
@@ -32,6 +28,7 @@ i3status
 i3-wm
 imv
 jq
+just
 kolourpaint
 lib32-gamemode
 lib32-pipewire
@@ -47,6 +44,7 @@ linux-lts
 lxappearance
 mame-tools
 man-db
+mermaid-cli
 mpv
 musescore
 ncdu
@@ -55,6 +53,7 @@ nim
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
+opencode
 pandoc-cli
 pavucontrol
 pdfarranger
@@ -76,7 +75,6 @@ retroarch
 rofi
 steam
 system-config-printer
-thunderbird
 tcl
 telegram-desktop
 testdisk
