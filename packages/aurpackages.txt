@@ -1,6 +1,5 @@
 adwaita-qt6-git
 coursier
-joplin-appimage
 lazydocker
 logseq-desktop-bin
 luarocks

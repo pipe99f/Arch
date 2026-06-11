@@ -33,7 +33,7 @@ networkmanager-dmenu
 ninja
 nodejs
 npm
-ntfs-3g
+ntfsprogs
 perl
 pacman-contrib
 pixi
