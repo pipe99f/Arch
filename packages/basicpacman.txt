@@ -27,7 +27,6 @@ htop
 ibus
 inotify-tools
 libtool
-fuzzel
 imagemagick
 meson
 networkmanager-dmenu
