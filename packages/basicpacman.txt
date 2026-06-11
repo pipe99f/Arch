@@ -74,4 +74,3 @@ yazi
 xorg-xlsclients
 xorg-xwayland
 zoxide
-chaotic-aur/clipman

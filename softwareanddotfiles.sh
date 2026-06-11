@@ -1,83 +1,104 @@
 #!/bin/bash
+set -uo pipefail
 
-chsh -s /usr/bin/zsh
+LOG_FILE="$HOME/arch-setup.log"
 
+if [ -t 1 ]; then
+    RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[0;33m'; BOLD='\033[1m'; NC='\033[0m'
+else
+    RED=''; GREEN=''; YELLOW=''; BOLD=''; NC=''
+fi
+
+log()    { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG_FILE"; }
+info()   { local msg="[INFO]  $*"; echo -e "${GREEN}${msg}${NC}"; log "$msg"; }
+warn()   { local msg="[WARN]  $*"; echo -e "${YELLOW}${msg}${NC}"; log "$msg"; }
+error()  { local msg="[ERROR] $*"; echo -e "${RED}${msg}${NC}"; log "$msg"; }
+step()   { local msg="========  $*  ========"; echo ""; echo -e "${BOLD}${msg}${NC}"; log "$msg"; }
+
+run() {
+    local desc="$1"; shift
+    step "$desc"
+    "$@"
+    local rc=$?
+    if [ $rc -eq 0 ]; then
+        info "$desc — done"
+    else
+        error "$desc — failed (exit $rc)"
+        return $rc
+    fi
+}
+
+info "Starting softwareanddotfiles.sh — $(date)"
+
+run "Changing default shell to zsh" chsh -s /usr/bin/zsh
+
+step "Laptop configuration"
 echo "Is this a laptop?"
 select yn in "Yes" "No"; do
 	case $yn in
 	Yes)
 		sudo pacman -S acpi acpi_call tlp bluez bluez-utils brightnessctl wireless_tools
-		systemctl enable bluetooth.service
-		systemctl enable tlp
+		sudo systemctl enable bluetooth.service
+		sudo systemctl enable tlp
 		break
 		;;
 	No) break ;;
 	esac
 done
 
-#Hook that deletes pacman cache
-# mkdir /etc/pacman.d/hooks && touch /etc/pacman.d/clean_pacman_cache.hook
-# tee -a /etc/pacman.d/hooks/clean_pacman_cache.hook << END
-# [Trigger]
-# Operation = Upgrade
-# Operation = Install
-# Operation = Remove
-# Type = Package
-# Target = *
-# [Action]
-# Description = Cleaning pacman cache...
-# When = PostTransaction
-# Exec = /usr/bin/paccache -r
-# END
-
-# Some empty directories and files that I prefer to create now
-echo "Creating directories and files..."
+step "Creating directories and files"
 touch "$HOME"/.priv
 mkdir -p "$HOME"/Downloads/firefox "$HOME"/.config/joplin "$HOME"/.config/joplin-desktop "$HOME"/.config/btop
 xdg-user-dirs-update
 
-#enabling multilib
-echo "Enabling multilib"
-echo '[multilib]' | sudo tee -a /etc/pacman.conf
-echo 'Include = /etc/pacman.d/mirrorlist' | sudo tee -a /etc/pacman.conf
+step "Enabling multilib"
+if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
+	echo '[multilib]' | sudo tee -a /etc/pacman.conf
+	echo 'Include = /etc/pacman.d/mirrorlist' | sudo tee -a /etc/pacman.conf
+	info "multilib repository enabled"
+else
+	info "multilib repository already enabled, skipping"
+fi
 
-# chaotic-aur
-echo "Enabling chaotic-aur"
-sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-sudo pacman-key --lsign-key 3056513887B78AEB
-sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
-echo '[chaotic-aur]' | sudo tee -a /etc/pacman.conf
-echo 'Include = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf
-sudo pacman -Sy
+step "Enabling chaotic-aur"
+run "Receiving chaotic-aur key" sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+run "Signing chaotic-aur key" sudo pacman-key --lsign-key 3056513887B78AEB
+run "Installing chaotic-aur keyring" sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+run "Installing chaotic-aur mirrorlist" sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+if ! grep -q '^\[chaotic-aur\]' /etc/pacman.conf; then
+	echo '[chaotic-aur]' | sudo tee -a /etc/pacman.conf
+	echo 'Include = /etc/pacman.d/chaotic-mirrorlist' | sudo tee -a /etc/pacman.conf
+	info "chaotic-aur repository enabled"
+else
+	info "chaotic-aur repository already enabled, skipping"
+fi
+run "Syncing package databases" sudo pacman -Sy
 
-#enable parallel downloads
+step "Enabling parallel downloads"
 sudo sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 
-#install basic packages
+step "Installing basic packages"
+# shellcheck disable=SC2024
 sudo pacman --needed -S - <"$HOME"/Arch/packages/basicpacman.txt
 
-#install fonts
-# mkdir -p "$HOME"/.fonts/
-# cd "$HOME"/.fonts/
-# wget -P "$HOME"/.fonts/ "$(curl -L -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep -o -E "https(.*)Arimo(.*).tar.xz")"
-# wget -P "$HOME"/.fonts/ "$(curl -L -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep -o -E "https(.*)RobotoMono(.*).tar.xz")"
+step "Installing yay"
+if [ -d "$HOME/yay-bin" ]; then
+	info "yay-bin directory already exists, skipping clone"
+else
+	run "Cloning yay" git clone https://aur.archlinux.org/yay-bin.git "$HOME/yay-bin"
+fi
+(cd "$HOME/yay-bin" && makepkg -si)
 
-#YAY installation. NINGUN PAQUETE AUR QUEDÓ INSTALADO CORRECTAMENTE
-echo "Installing yay..."
-git clone https://aur.archlinux.org/yay-bin.git "$HOME"/yay-bin
-cd "$HOME"/yay-bin
-makepkg -si
+step "Installing tmux plugin manager"
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+	info "tpm directory already exists, skipping clone"
+else
+	run "Cloning tpm" git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
+fi
 
-#tmux plugin manager
-echo "Cloning tmux plugin manager..."
-git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
-
-#custom .desktop
-echo "Creating custom .desktop files..."
-mkdir "$HOME"/.local/share/applications
-touch "$HOME"/.local/share/applications/steamgamemode.desktop
-tee -a "$HOME"/.local/share/applications/steamgamemode.desktop <<END
+step "Creating Steam gamemode desktop entry"
+mkdir -p "$HOME"/.local/share/applications
+tee "$HOME"/.local/share/applications/steamgamemode.desktop <<END
 [Desktop Entry]
 Name=Steam gamemode
 Comment= Gamemode
@@ -88,57 +109,34 @@ Type=Application
 Categories=Game;
 END
 
-#default applications
-# handlr set inode/directory thunar.desktop
-# handlr set application/pdf org.pwmt.zathura.desktop
+run "Installing rust stable toolchain" rustup default stable
 
-# Install rust toolchain
-rustup default stable
+run "Installing yazi smart-enter plugin" ya pkg add yazi-rs/plugins:smart-enter
 
-# yazi plugins
-ya pkg add yazi-rs/plugins:smart-enter
-
-# bat theme
+step "Installing Catppuccin bat theme"
 mkdir -p "$(bat --config-dir)/themes"
 wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
 bat cache --build
 
-# yarn
-yarn global add @mistweaverco/kulala-ls
+run "Installing kulala-ls" yarn global add @mistweaverco/kulala-ls
 
-#Stow
-echo "Stowing..."
-git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles
-cd "$HOME"/dotfiles
-rm "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list "$HOME"/.config/ghostty/config.ghostty
-stow *
+step "Stowing dotfiles"
+if [ -d "$HOME/dotfiles" ]; then
+	info "dotfiles directory already exists, skipping clone"
+else
+	run "Cloning dotfiles" git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles
+fi
+(cd "$HOME/dotfiles" && rm -f "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list "$HOME"/.config/ghostty/config.ghostty && stow -- *)
 
-# Install necessary pixi packages
+step "Installing pixi packages"
 pixi global install --environment data-science-env pynvim jupyter_client plotly kaleido-core python-kaleido pyperclip radian jupyterlab jupyter_console
 
-# Doom emacs
-#git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-#~/.config/emacs/bin/doom install
-#doom sync
-#rm -r "$HOME"/.emacs.d "$HOME"/.emacs
-
-#enable services
-echo "Enabling services..."
-# Audio (Modern standard)
+step "Enabling services"
 systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
+sudo systemctl enable --now ufw.service archlinux-keyring-wkd-sync.timer paccache.timer earlyoom
+sudo systemctl enable --now docker.socket
+sudo usermod -aG docker "$USER"
+sudo systemctl enable --now grub-btrfsd
+sudo systemctl enable cups.service cronie.service
 
-# Maintenance & Security
-systemctl enable --now ufw.service archlinux-keyring-wkd-sync.timer paccache.timer earlyoom
-
-# docker
-systemctl enable --now docker.socket
-usermod -aG docker "$USER"
-
-##si se usa ssd
-#systemctl enable fstrim.timer
-
-# Only if using Btrfs snapshots
-systemctl enable --now grub-btrfsd
-
-# Otros (only if really needed)
-systemctl enable cups.service cronie.service
+info "softwareanddotfiles.sh completed — $(date)"
