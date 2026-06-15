@@ -25,6 +25,7 @@ grub-btrfs
 handlr-regex
 htop
 hypridle
+hyprland
 hyprlock
 hyprpaper
 hyprpolkitagent
