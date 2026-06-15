@@ -51,6 +51,7 @@ nim
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
+nwg-displays
 opencode
 pandoc-cli
 pavucontrol
@@ -93,7 +94,6 @@ unzip
 uv
 visidata
 wf-recorder
-wl-mirror
 xclip
 xorg-server
 xorg-xinit

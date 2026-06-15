@@ -1,11 +1,7 @@
-adwaita-qt6-git
 coursier
 lazydocker
-logseq-desktop-bin
-luarocks
 msodbcsql
 pcsx2-latest-bin
 quarto-cli-bin
 scala-dotty
 superproductivity-bin
-wdisplays
