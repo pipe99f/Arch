@@ -1,0 +1,15 @@
+steam                     # Steam digital distribution platform
+gamemode                  # Optimizes system performance on demand for games
+lib32-gamemode            # 32-bit library for GameMode (needed for many Steam games)
+retroarch                 # Frontend for emulators, game engines and media players
+mame-tools                # Arcade emulation tools
+
+# --- RetroArch Cores (Emulators) ---
+libretro-core-info        # Core information files for RetroArch
+libretro-beetle-psx-hw    # PlayStation 1 emulator core (Hardware accelerated)
+libretro-pcsx2            # PlayStation 2 emulator core
+libretro-dolphin          # GameCube / Wii emulator core
+libretro-genesis-plus-gx  # Sega Genesis/Mega Drive emulator core
+libretro-snes9x           # Super Nintendo emulator core
+libretro-mesen            # NES/Famicom emulator core
+libretro-mupen64plus-next # Nintendo 64 emulator core

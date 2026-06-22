@@ -1,0 +1,30 @@
+7zip              # 7-Zip compression utility
+linux-lts         # Long-Term Support Linux kernel
+man-db            # System manual database
+tldr              # Simplified, example-driven man pages
+usbutils          # USB device utilities (lsusb)
+zip               # Streamlined file compression
+unzip             # Zip extraction
+unarchiver        # Robust archive extractor
+unrar             # RAR archive extraction
+
+# --- Audio & Display Server Management ---
+alsa-utils        # Advanced Linux Sound Architecture utilities
+easyeffects       # System-wide audio effects for PipeWire
+helvum            # PipeWire patchbay (GUI)
+nwg-displays      # Display management utility
+lib32-pipewire    # 32-bit PipeWire plugins (often for gaming)
+pavucontrol       # PulseAudio/PipeWire volume control GUI
+
+# --- Fonts ---
+noto-fonts        # Google Noto fonts (Universal)
+noto-fonts-cjk    # Google Noto fonts for Chinese, Japanese, and Korean
+noto-fonts-emoji  # Google Noto emoji fonts
+
+# --- System Utilities ---
+btop              # Modern, visual game-like system monitor
+duf               # Disk Usage/Free Utility (beautiful df alternative)
+dust              # A more intuitive version of du (disk usage)
+ncdu              # NCurses Disk Usage analyzer
+baobab            # Graphical disk usage analyzer
+testdisk          # Data recovery software

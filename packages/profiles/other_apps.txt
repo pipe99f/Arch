@@ -1,0 +1,19 @@
+# --- Full TexLive/LaTeX Ecosystem ---
+texlive-basic           # TeX Live: Essential programs and files
+texlive-binextra        # TeX Live: Additional binaries
+texlive-langspanish     # TeX Live: Spanish language support
+texlive-latex           # TeX Live: Basic LaTeX packages
+texlive-latexextra      # TeX Live: LaTeX additional packages
+texlive-latexrecommended # TeX Live: LaTeX recommended packages
+texlive-mathscience     # TeX Live: Mathematics, natural sciences, and computer science packages
+
+# --- Graphics, Media, Music ---
+kolourpaint       # Simple paint program (like MS Paint)
+musescore         # Music notation and composition software
+
+# --- Printing ---
+cups-pdf          # Virtual PDF printer for CUPS
+system-config-printer # Graphical user interface for configuring CUPS
+
+# --- Web ---
+chromium          # Open-source web browser

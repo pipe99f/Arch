@@ -1,4 +1,5 @@
 alsa-utils
+anki
 baobab
 bear
 btop
@@ -29,8 +30,10 @@ imv
 jq
 just
 kolourpaint
+lazydocker
 lib32-gamemode
 lib32-pipewire
+libreoffice-fresh
 libretro-beetle-psx-hw
 libretro-core-info
 libretro-dolphin

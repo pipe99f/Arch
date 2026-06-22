@@ -1,0 +1,30 @@
+# --- Web & Communication ---
+telegram-desktop  # Telegram messaging client
+qbittorrent       # BitTorrent client
+
+# --- Documents, Office, & Note Taking ---
+libreoffice-fresh # Full-featured office suite (latest features)
+calibre           # E-book management application
+anki              # Flashcard program for intelligent learning
+xournalpp         # Handwritten note-taking software with PDF annotation
+pdfarranger       # Small python-gtk application to merge/split/rotate PDFs
+
+# --- Document Compilation & Libraries ---
+pandoc-cli        # Swiss-army knife for converting text markup formats
+poppler           # PDF rendering library
+python-pymupdf    # Python bindings for MuPDF
+zathura           # Highly customizable, document viewer
+zathura-pdf-mupdf # MuPDF backend for Zathura
+zathura-djvu      # DjVu backend for Zathura
+
+# --- Graphics, Images, & Media Players ---
+imv               # Image viewer for tiling window managers
+mpv               # Highly customizable command-line media player
+ffmpegthumbnailer # Lightweight video thumbnailer
+wf-recorder       # Screen recorder for Wayland/X11
+
+# --- Python Specific Graphical System Libraries ---
+python-beautifulsoup4 # A Python HTML/XML parser designed for quick turnaround projects like screen-scraping
+python-pillow     # Python Imaging Library
+python-requests # python HTTP for humans
+python-snappy # Compression library

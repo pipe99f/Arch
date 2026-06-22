@@ -1,0 +1,31 @@
+# --- Runtimes, Compilers & Package Managers ---
+cpanminus         # Get, unpack, build, and install modules from CPAN (Perl)
+fennel            # Lisp-like language that compiles to Lua
+gcc-fortran       # Fortran front-end for GCC
+go                # Go programming language compiler
+r                 # R statistical computing language
+tcl               # Tcl scripting language
+tk                # Tcl toolkit for GUIs
+uv                # Ultra-fast Python package installer/resolver
+
+# --- Git & Workflow ---
+direnv            # Environment switcher based on current directory
+git-lfs           # Git Large File Storage
+github-cli        # GitHub CLI tool (gh)
+gitui             # Fast terminal client for git
+hub               # Wrapper for git with GitHub features
+just              # Handy command runner (modern alternative to make)
+tmuxp             # Tmux session manager
+
+# --- CLI Data & Web Utilities ---
+bear              # Tool to generate compilation databases for clang tooling
+geckodriver       # WebDriver capabilities for Firefox automation
+httpie            # Modern, user-friendly HTTP client (CLI)
+jq                # Command-line JSON processor
+lazydocker        # Simple terminal UI for docker containers and docker-compose
+opencode          # AI Agent
+visidata          # Terminal spreadsheet and data analyzer
+
+# --- Code Formatting & Tech Docs ---
+mermaid-cli       # Command-line interface for Mermaid (diagrams-as-code)
+texinfo           # GNU documentation system

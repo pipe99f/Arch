@@ -1,7 +1,5 @@
 coursier
-lazydocker
 msodbcsql
 pcsx2-latest-bin
 quarto-cli-bin
 scala-dotty
-superproductivity-bin
