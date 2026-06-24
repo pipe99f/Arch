@@ -4,28 +4,54 @@ set -uo pipefail
 LOG_FILE="/var/log/arch-setup.log"
 
 if [ -t 1 ]; then
-    RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[0;33m'; BOLD='\033[1m'; NC='\033[0m'
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[0;33m'
+  BOLD='\033[1m'
+  NC='\033[0m'
 else
-    RED=''; GREEN=''; YELLOW=''; BOLD=''; NC=''
+  RED=''
+  GREEN=''
+  YELLOW=''
+  BOLD=''
+  NC=''
 fi
 
-log()    { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG_FILE"; }
-info()   { local msg="[INFO]  $*"; echo -e "${GREEN}${msg}${NC}"; log "$msg"; }
-warn()   { local msg="[WARN]  $*"; echo -e "${YELLOW}${msg}${NC}"; log "$msg"; }
-error()  { local msg="[ERROR] $*"; echo -e "${RED}${msg}${NC}"; log "$msg"; }
-step()   { local msg="========  $*  ========"; echo ""; echo -e "${BOLD}${msg}${NC}"; log "$msg"; }
+log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >>"$LOG_FILE"; }
+info() {
+  local msg="[INFO]  $*"
+  echo -e "${GREEN}${msg}${NC}"
+  log "$msg"
+}
+warn() {
+  local msg="[WARN]  $*"
+  echo -e "${YELLOW}${msg}${NC}"
+  log "$msg"
+}
+error() {
+  local msg="[ERROR] $*"
+  echo -e "${RED}${msg}${NC}"
+  log "$msg"
+}
+step() {
+  local msg="========  $*  ========"
+  echo ""
+  echo -e "${BOLD}${msg}${NC}"
+  log "$msg"
+}
 
 run() {
-    local desc="$1"; shift
-    step "$desc"
-    "$@"
-    local rc=$?
-    if [ $rc -eq 0 ]; then
-        info "$desc — done"
-    else
-        error "$desc — failed (exit $rc)"
-        return $rc
-    fi
+  local desc="$1"
+  shift
+  step "$desc"
+  "$@"
+  local rc=$?
+  if [ "$rc" -eq 0 ]; then
+    info "$desc — done"
+  else
+    error "$desc — failed (exit $rc)"
+    return "$rc"
+  fi
 }
 
 info "Starting firstsetup.sh — $(date)"
@@ -51,7 +77,7 @@ step "Setting root password"
 set_password() {
   local username="${1:-}"
   while true; do
-    if [ -z "$username" ]; then
+    if [ "$username" = "" ]; then
       if passwd; then
         info "Password set successfully."
         return 0
@@ -71,6 +97,9 @@ set_password() {
 set_password
 
 run "Selecting fastest mirrors" reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
+step "Cleaning up"
+rm /var/lib/pacman/db.lck
 
 step "Installing base packages"
 pacman -S curl grub networkmanager dialog wpa_supplicant mtools dosfstools linux-headers avahi xdg-user-dirs xdg-utils os-prober openssh gvfs pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber efibootmgr ntp acpid nss-mdns iptables dnsmasq openbsd-netcat zsh
@@ -136,7 +165,5 @@ ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="
 ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 END
 
-step "Cleaning up"
-rm /var/lib/pacman/db.lck
-
 info "firstsetup.sh completed — $(date)"
+

@@ -4,27 +4,53 @@ set -uo pipefail
 LOG_FILE="$HOME/arch-setup.log"
 
 if [ -t 1 ]; then
-    RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[0;33m'; BOLD='\033[1m'; NC='\033[0m'
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    YELLOW='\033[0;33m'
+    BOLD='\033[1m'
+    NC='\033[0m'
 else
-    RED=''; GREEN=''; YELLOW=''; BOLD=''; NC=''
+    RED=''
+    GREEN=''
+    YELLOW=''
+    BOLD=''
+    NC=''
 fi
 
-log()    { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG_FILE"; }
-info()   { local msg="[INFO]  $*"; echo -e "${GREEN}${msg}${NC}"; log "$msg"; }
-warn()   { local msg="[WARN]  $*"; echo -e "${YELLOW}${msg}${NC}"; log "$msg"; }
-error()  { local msg="[ERROR] $*"; echo -e "${RED}${msg}${NC}"; log "$msg"; }
-step()   { local msg="========  $*  ========"; echo ""; echo -e "${BOLD}${msg}${NC}"; log "$msg"; }
+log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >>"$LOG_FILE"; }
+info() {
+    local msg="[INFO]  $*"
+    echo -e "${GREEN}${msg}${NC}"
+    log "$msg"
+}
+warn() {
+    local msg="[WARN]  $*"
+    echo -e "${YELLOW}${msg}${NC}"
+    log "$msg"
+}
+error() {
+    local msg="[ERROR] $*"
+    echo -e "${RED}${msg}${NC}"
+    log "$msg"
+}
+step() {
+    local msg="========  $*  ========"
+    echo ""
+    echo -e "${BOLD}${msg}${NC}"
+    log "$msg"
+}
 
 run() {
-    local desc="$1"; shift
+    local desc="$1"
+    shift
     step "$desc"
     "$@"
     local rc=$?
-    if [ $rc -eq 0 ]; then
+    if [ "$rc" -eq 0 ]; then
         info "$desc — done"
     else
         error "$desc — failed (exit $rc)"
-        return $rc
+        return "$rc"
     fi
 }
 
@@ -46,17 +72,17 @@ sudo pacman --needed -S - <"$HOME"/Arch/packages/wslpackages.txt
 
 step "Installing yay"
 if [ -d "$HOME/yay-bin" ]; then
-	info "yay-bin directory already exists, skipping clone"
+    info "yay-bin directory already exists, skipping clone"
 else
-	run "Cloning yay" git clone https://aur.archlinux.org/yay-bin.git "$HOME/yay-bin"
+    run "Cloning yay" git clone https://aur.archlinux.org/yay-bin.git "$HOME/yay-bin"
 fi
 (cd "$HOME/yay-bin" && makepkg -si)
 
 step "Installing tmux plugin manager"
 if [ -d "$HOME/.tmux/plugins/tpm" ]; then
-	info "tpm directory already exists, skipping clone"
+    info "tpm directory already exists, skipping clone"
 else
-	run "Cloning tpm" git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
+    run "Cloning tpm" git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
 fi
 
 run "Installing yazi smart-enter plugin" ya pkg add yazi-rs/plugins:smart-enter
@@ -76,13 +102,16 @@ run "Enabling reflector timer" sudo systemctl enable reflector.timer
 
 step "Stowing dotfiles"
 if [ -d "$HOME/dotfiles" ]; then
-	info "dotfiles directory already exists, skipping clone"
+    info "dotfiles directory already exists, skipping clone"
 else
-	run "Cloning dotfiles" git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles
+    run "Cloning dotfiles" git clone https://github.com/pipe99f/dotfiles "$HOME"/dotfiles
 fi
 (cd "$HOME/dotfiles" && rm -f "$HOME"/.zshrc "$HOME"/.bashrc "$HOME"/.bash_profile "$HOME"/.config/atuin/config.toml "$HOME"/.config/mimeapps.list && stow -- *)
 
 step "Installing pixi packages"
-pixi global install --environment data-science-env pynvim jupyter_client plotly kaleido-core python-kaleido pyperclip radian jupyterlab jupyter_console
+pixi global install --environment data-science-env pynvim jupyter_client plotly kaleido-core python-kaleido pyperclip radian jupyterlab jupyter_console ipython
+# Create a kernel for general use (jupynvim)
+"$HOME"/.pixi/envs/data-science-env/bin/python -m ipykernel install --user --name pixi_ds_global
 
 info "wslsetup_user.sh completed — $(date)"
+
