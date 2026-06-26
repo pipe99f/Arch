@@ -14,7 +14,6 @@ eza
 fd
 fzf
 github-cli
-gitui
 go
 grep
 htop
@@ -22,6 +21,8 @@ imagemagick
 imv
 jq
 just
+lazydocker
+lazygit
 man-db
 ncdu
 ninja
@@ -38,6 +39,7 @@ python-virtualenv
 xclip
 r
 ripgrep
+sshfs
 starship
 stow
 tcl

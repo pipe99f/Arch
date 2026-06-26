@@ -1,5 +1,7 @@
 coursier
+infisical-bin
 msodbcsql
 pcsx2-latest-bin
 quarto-cli-bin
 scala-dotty
+topgrade-bin

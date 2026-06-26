@@ -18,6 +18,7 @@ fzf
 gammastep
 ghostty
 glfw-wayland
+gnome-keyring
 grep
 grim
 grub-btrfs

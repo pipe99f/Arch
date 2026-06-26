@@ -12,9 +12,9 @@ uv                # Ultra-fast Python package installer/resolver
 direnv            # Environment switcher based on current directory
 git-lfs           # Git Large File Storage
 github-cli        # GitHub CLI tool (gh)
-gitui             # Fast terminal client for git
 hub               # Wrapper for git with GitHub features
 just              # Handy command runner (modern alternative to make)
+lazygit           # Fast terminal client for git
 tmuxp             # Tmux session manager
 
 # --- CLI Data & Web Utilities ---
@@ -24,6 +24,7 @@ httpie            # Modern, user-friendly HTTP client (CLI)
 jq                # Command-line JSON processor
 lazydocker        # Simple terminal UI for docker containers and docker-compose
 opencode          # AI Agent
+sshfs             # SSHFS file system client
 visidata          # Terminal spreadsheet and data analyzer
 
 # --- Code Formatting & Tech Docs ---

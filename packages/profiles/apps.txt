@@ -16,6 +16,7 @@ python-pymupdf    # Python bindings for MuPDF
 zathura           # Highly customizable, document viewer
 zathura-pdf-mupdf # MuPDF backend for Zathura
 zathura-djvu      # DjVu backend for Zathura
+zotero            # Open-source reference management software
 
 # --- Graphics, Images, & Media Players ---
 imv               # Image viewer for tiling window managers
