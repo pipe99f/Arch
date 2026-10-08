@@ -36,6 +36,7 @@ kvantum
 meson
 networkmanager-dmenu
 ninja
+noctalia
 nodejs
 npm
 ntfsprogs
@@ -55,7 +56,6 @@ spotify-player
 starship
 stow
 sudo
-swaync
 thunar
 timeshift
 tmux
@@ -63,7 +63,6 @@ tree-sitter-cli
 ttf-arimo-nerd
 ttf-roboto-mono-nerd
 ufw
-waybar
 wayland
 wget
 which

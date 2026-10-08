@@ -3,11 +3,14 @@ telegram-desktop  # Telegram messaging client
 qbittorrent       # BitTorrent client
 
 # --- Documents, Office, & Note Taking ---
-libreoffice-fresh # Full-featured office suite (latest features)
-calibre           # E-book management application
 anki              # Flashcard program for intelligent learning
-xournalpp         # Handwritten note-taking software with PDF annotation
+calibre           # E-book management application
+libreoffice-fresh # Full-featured office suite (latest features)
 pdfarranger       # Small python-gtk application to merge/split/rotate PDFs
+pdftk             # A more powerful cli tool for working with PDFs (I
+rearrange music sheet pdfs with this)
+typst             # Great document typesetting system
+xournalpp         # Handwritten note-taking software with PDF annotation
 
 # --- Document Compilation & Libraries ---
 pandoc-cli        # Swiss-army knife for converting text markup formats
